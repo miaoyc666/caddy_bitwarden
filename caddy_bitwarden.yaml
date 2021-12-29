@@ -1,0 +1,20 @@
+version: "3.2"
+services:
+  caddy:
+    image: caddy
+    ports:
+      - 5002:5002
+    volumes:
+      - /share/caddy_data/Caddyfile:/etc/caddy/Caddyfile
+      - /share/caddy_data/myc.ink.pem:/etc/caddy/myc.ink.pem
+      - /share/caddy_data/myc.ink.key:/etc/caddy/myc.ink.key
+  bitwarden_rs:
+    image: bitwardenrs/server
+    volumes:
+      - /share/bw-data:/data
+      - /share/caddy_data/localtime:/etc/localtime:ro
+      - /share/caddy_data/timezone:/etc/timezone:ro
+    environment:
+      - SIGNUPS_ALLOWED=false
+      - TZ=Asia/Shanghai
+      - WEBSOCKET_ENABLED=true

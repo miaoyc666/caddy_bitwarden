@@ -1,0 +1,17 @@
+myc.ink:5002 {
+    tls /etc/caddy/myc.ink.pem /etc/caddy/myc.ink.key
+    header / {
+       # Enable cross-site filter (XSS) and tell browser to block detected attacks
+       X-XSS-Protection "1; mode=block"
+       # Disallow the site to be rendered within a frame (clickjacking protection)
+       X-Frame-Options "DENY"
+       # Prevent search engines from indexing (optional)
+       X-Robots-Tag "none"
+       # Server name removing
+       -Server
+    }
+    reverse_proxy /notifications/hub/negotiate bitwarden_rs:80
+    # Notifications redirected to the websockets server
+    reverse_proxy /notifications/hub bitwarden_rs:3012
+    reverse_proxy bitwarden_rs:80
+}

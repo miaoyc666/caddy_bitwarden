@@ -9,7 +9,7 @@ services:
       - /share/caddy_data/myc.ink.pem:/etc/caddy/myc.ink.pem
       - /share/caddy_data/myc.ink.key:/etc/caddy/myc.ink.key
   bitwarden_rs:
-    image: bitwardenrs/server
+    image: vaultwarden/server:latest
     volumes:
       - /share/bw-data:/data
       - /share/caddy_data/localtime:/etc/localtime:ro
